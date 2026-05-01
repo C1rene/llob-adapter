@@ -3,10 +3,10 @@ import path from 'path';
 import yaml from 'yaml';  
 import lodash from 'lodash'  
 import { cfg, nccommon } from './lib/index.js';  
-  
+
 let cfgPath = './plugins/napcat-adapter/config/config/cfg.yaml'  
 let botlistPath = './plugins/napcat-adapter/config/config/botlist.json'  
-  
+
 export function supportGuoba() {  
   return {  
     pluginInfo: {  
@@ -80,7 +80,44 @@ export function supportGuoba() {
             max: 16777216,  
             placeholder: '请输入阈值',  
           }  
-        },        
+        },
+        {  
+          component: 'Divider',  
+          label: '文本替换'  
+        },  
+        {  
+          field: 'replaceText',  
+          label: '文本替换规则',  
+          component: 'GSubForm',  
+          bottomHelpMessage: '替换文本消息中的指定字符串，key支持正则表达式，value支持为空',  
+          componentProps: {  
+            multiple: true,  
+            modalProps: {  
+              title: '文本替换规则配置',  
+              width: 600  
+            },  
+            schemas: [  
+              {  
+                field: 'key',  
+                label: '匹配规则（正则/字符串）',  
+                component: 'Input',  
+                required: true,  
+                bottomHelpMessage: '以"/"开头和结尾视为正则表达式，否则作为普通字符串匹配（特殊字符会被转义）',  
+                componentProps: {  
+                  placeholder: '输入要匹配的字符串，如需正则请使用 /正则/ 格式',  
+                }  
+              },  
+              {  
+                field: 'value',  
+                label: '替换值',  
+                component: 'Input',  
+                componentProps: {  
+                  placeholder: '输入替换后的内容，留空则删除匹配内容',  
+                }  
+              }  
+            ]  
+          }  
+        },
         {  
           component: 'Divider',  
           label: '多Bot配置',  
@@ -159,6 +196,11 @@ export function supportGuoba() {
         
       async getConfigData() {  
         const config = cfg();  
+        
+        // 新增：确保replaceText字段存在，默认空数组
+        if (!config.replaceText) {  
+          config.replaceText = [];  
+        }  
           
         // 如果开启了多Bot模式，读取botlist.json  
         if (config.multiple && fs.existsSync(botlistPath)) {  
