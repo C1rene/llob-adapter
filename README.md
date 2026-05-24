@@ -18,5 +18,5 @@ git clone --depth=1 https://github.com/C1rene/llob-adapter.git ./plugins/llob-ad
 **安装依赖**
 
 ```bash
-pnpm install --filter=napcat-adapter
+pnpm install --filter=llob-adapter
 ```
