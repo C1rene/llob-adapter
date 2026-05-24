@@ -1,0 +1,16 @@
+baseUrl: ws://127.0.0.1:3001
+multiple: false
+throwPromise: false
+reconnection:
+  enable: true
+  attempts: 10
+  delay: 5000
+logbotinfo: true
+isBotuinArray: false
+bigFileSize: 10485760
+allowSelfTrigger: false
+allowOtherPluginIntercept: false
+accessToken: Cyrene
+replaceText:
+  - key: ""
+    value: ""
