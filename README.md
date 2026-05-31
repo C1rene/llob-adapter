@@ -11,7 +11,7 @@
 
 **GitHub 源**
 
-```bash
+```
 git clone --depth=1 https://github.com/C1rene/llob-adapter.git ./plugins/napcat-adapter
 ```
 
